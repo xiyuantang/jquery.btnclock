@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>倒计时</title>
+<script src="../js/jquery-1.8.3.js" type="text/javascript"></script>
+<script src="../js/jquery.btnclock.js" type="text/javascript"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<body>
+
+<div class="btnclock">发送</div><br /><br />
+<script type="text/javascript">
+	var btnClock = $.newBtnClock({
+		"btnSelecter":'.btnclock',
+		"timeCounter":10,
+		'btnNormalText':'发送',
+		"btnClockText":'还有{0}秒',
+	});
+	$('.btnclock').click(function(){
+		if(!btnClock.isSendable){
+			return false;
+		}
+		btnClock.startClock();
+		$.post("htt://www.domain.com/member/passport/sendmailcode')}",{},function(data){
+			if(data.status != 1){
+				btnClock.reset();
+			}
+		},'json');
+		return false;
+	});
+</script>
+
+<div class="btnclockn btn1">发送</div><br />
+<div class="btnclockn btn2">发送</div><br />
+<div class="btnclockn btn3">发送</div><br />
+<script type="text/javascript">
+	$('.btnclockn').bindBtnClock({
+		"btnSelecter":'.btnclock',
+		"timeCounter":20,
+		'btnNormalText':'发送',
+		"btnClockText":'还有{0}秒',
+		"callbackFunc":function(btnClock){
+			$.post("{:U('member/passport/sendmailcode')}",{},function(data){
+				if(data.status != 1){
+					btnClock.reset();
+				}
+			},'json');
+	}});
+</script>
+</body>
+</html>
